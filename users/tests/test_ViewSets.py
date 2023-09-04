@@ -27,3 +27,9 @@ class TestUsersViewSet(APITestCase):
         response = self.client.post("/users/", data=self.payload)
         self.assertEqual(201, response.status_code)
         self.assertEqual(6, User.objects.count())
+
+    def test_should_delete_user(self):
+        self.assertEqual(5, User.objects.count())
+        response = self.client.delete("/users/1", data=self.payload)
+        self.assertEqual(204, response.status_code)
+        self.assertEqual(4, User.objects.count())
